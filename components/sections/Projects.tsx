@@ -13,6 +13,8 @@ const projects = [
     description: 'Landing page bisnis dengan animasi smooth, fully responsive, dan optimasi SEO.',
     tech: ['HTML', 'CSS', 'React', 'Tailwind'],
     accent: 'blue',
+    demoUrl: 'https://homecareclinik.vercel.app',
+    githubUrl: 'https://github.com/kulaiaja123-lgtm/homecareclinik',
   },
   {
     title: 'Sistem Kasir POS',
@@ -20,13 +22,17 @@ const projects = [
     description: 'Aplikasi kasir lengkap: manajemen produk, transaksi, laporan, dan multi-user login.',
     tech: ['React', 'Java', 'MySQL', 'REST API'],
     accent: 'green',
+    demoUrl: 'https://umkm-pos-theta.vercel.app',
+    githubUrl: 'https://github.com/kulaiaja123-lgtm/umkm-pos',
   },
   {
     title: 'AI Data Analyst',
     category: 'AI',
     description: 'Upload CSV/Excel, AI otomatis analisis data, buat visualisasi grafik, dan insight otomatis.',
-    tech: ['Python', 'Streamlit', 'Pandas', 'OpenAI'],
+    tech: ['Python', 'Streamlit', 'Pandas', 'OpenAI', 'React', 'Next.js'],
     accent: 'purple',
+    demoUrl: '',
+    githubUrl: '',
   },
   {
     title: 'Chatbot Pertanian',
@@ -34,6 +40,8 @@ const projects = [
     description: 'Asisten AI untuk petani — menjawab pertanyaan soal hama, cuaca, dan teknik bertani.',
     tech: ['Python', 'Next.js', 'NLP', 'OpenAI API'],
     accent: 'cyan',
+    demoUrl: 'https://panen-cerdas-c35b.vercel.app',
+    githubUrl: 'https://github.com/kulaiaja123-lgtm/panen-cerdas',
   },
   {
     title: 'E-Commerce Platform',
@@ -41,6 +49,8 @@ const projects = [
     description: 'Platform belanja online lengkap dengan keranjang belanja, checkout, dan dashboard admin.',
     tech: ['Next.js', 'Java', 'PostgreSQL', 'Midtrans'],
     accent: 'orange',
+    demoUrl: 'https://catalog-fnb.vercel.app',
+    githubUrl: 'https://github.com/kulaiaja123-lgtm/catalogFNB',
   },
   {
     title: 'Dashboard Streamlit',
@@ -48,6 +58,8 @@ const projects = [
     description: 'Dashboard analitik interaktif berbasis Python untuk monitoring dan visualisasi data bisnis.',
     tech: ['Python', 'Streamlit', 'Plotly', 'Pandas'],
     accent: 'yellow',
+    demoUrl: 'https://customer-marketing-analytics-endsakxhpywwscwv8peuvj.streamlit.app',
+    githubUrl: 'https://github.com/kulaiaja123-lgtm/customer-marketing-analytics',
   },
 ];
 
@@ -150,14 +162,24 @@ export default function Projects() {
                       ))}
                     </div>
                     <div className="flex items-center gap-3">
-                      <button className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan transition-colors">
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan transition-colors"
+                      >
                         <ExternalLink size={14} />
                         Live Demo
-                      </button>
-                      <button className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan transition-colors">
+                      </a>
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan transition-colors"
+                      >
                         <Github size={14} />
                         GitHub
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </motion.div>

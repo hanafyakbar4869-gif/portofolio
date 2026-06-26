@@ -78,7 +78,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-4"
         >
-          <span className="text-gradient">[NAMA KAMU]</span>
+          <span className="text-gradient">MHD HANAFI AKBAR</span>
         </motion.h1>
 
         <motion.div

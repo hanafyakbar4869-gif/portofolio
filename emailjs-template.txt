@@ -1,0 +1,17 @@
+Subject: Pesan Baru dari Portfolio: {{nama}}
+
+====================================
+  PESAN DARI PORTFOLIO WEBSITE
+====================================
+
+Nama    : {{nama}}
+Email   : {{email}}
+Layanan : {{layanan}}
+
+------------------------------------
+Pesan:
+------------------------------------
+{{pesan}}
+
+------------------------------------
+Dikirim melalui form kontak portfolio

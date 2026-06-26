@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { MapPin, Mail, MessageCircle, Github, Linkedin, Instagram, Send } from 'lucide-react';
+import { MapPin, Mail, MessageCircle, Github, Linkedin, Instagram, Send, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -24,15 +25,37 @@ export default function Contact() {
     pesan: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    emailjs.init({
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+    });
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setLoading(true);
+    setError(null);
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        formData
+      );
+      setSubmitted(true);
+      setFormData({ nama: '', email: '', layanan: '', pesan: '' });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (err) {
+      setError('Gagal mengirim pesan. Silakan coba lagi.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -87,7 +110,7 @@ export default function Contact() {
                 <h4 className="text-white font-medium mb-4">Social Links</h4>
                 <div className="flex items-center gap-4">
                   <a
-                    href="https://github.com"
+                    href="https://github.com/kulaiaja123-lgtm"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
@@ -95,7 +118,7 @@ export default function Contact() {
                     <Github size={18} />
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/hanafitech"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
@@ -103,7 +126,7 @@ export default function Contact() {
                     <Linkedin size={18} />
                   </a>
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/remah_ramah"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
@@ -188,11 +211,25 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-cyan text-dark font-semibold rounded-full hover:bg-cyan/90 transition-all duration-200 hover:shadow-[0_0_30px_rgba(0,212,255,0.3)]"
+                  disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-cyan text-dark font-semibold rounded-full hover:bg-cyan/90 transition-all duration-200 hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send size={18} />
-                  {submitted ? 'Terkirim!' : 'Kirim Pesan'}
+                  {loading ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Mengirim...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      {submitted ? 'Terkirim!' : 'Kirim Pesan'}
+                    </>
+                  )}
                 </button>
+
+                {error && (
+                  <p className="text-red-400 text-sm text-center">{error}</p>
+                )}
 
                 <a
                   href="https://wa.me/62895630345994"

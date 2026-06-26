@@ -1,6 +1,7 @@
 'use client';
 
 import { Github, Linkedin, Instagram } from 'lucide-react';
+import Image from 'next/image';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -24,7 +25,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           <div>
-            <div className="text-2xl font-bold text-cyan mb-3">DevStudio</div>
+            <div className="flex items-center gap-2 mb-3">
+              <Image src="/images/logo.svg" alt="KulaiTach Logo" width={48} height={48} />
+              <span className="text-2xl font-bold text-purple-400">KulaiTach</span>
+            </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Building Digital Products That Work.
             </p>
@@ -48,7 +52,7 @@ export default function Footer() {
 
           <div className="flex gap-4 md:justify-end">
             <a
-              href="https://github.com"
+              href="https://github.com/kulaiaja123-lgtm"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
@@ -56,7 +60,7 @@ export default function Footer() {
               <Github size={18} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/hanafitech"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
@@ -64,7 +68,7 @@ export default function Footer() {
               <Linkedin size={18} />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/remah_ramah"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"

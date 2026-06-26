@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -66,8 +67,9 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="#home" onClick={() => handleClick('#home')} className="text-xl lg:text-2xl font-bold text-cyan">
-            DevStudio
+          <a href="#home" onClick={() => handleClick('#home')} className="flex items-center gap-2">
+            <Image src="/images/logo.svg" alt="KulaiTach Logo" width={36} height={36} />
+            <span className="text-xl font-bold text-purple-400">KulaiTach</span>
           </a>
 
           <div className="hidden md:flex items-center gap-8">

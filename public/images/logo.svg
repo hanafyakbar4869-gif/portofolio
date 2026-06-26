@@ -1,0 +1,36 @@
+<svg id="branding-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="w-48 h-48 glow-effect" width="800" height="800">
+                    <defs>
+                        <linearGradient id="codeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#22d3ee"/>
+                            <stop offset="100%" stop-color="#38bdf8"/>
+                        </linearGradient>
+                        <linearGradient id="codeGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#6366f1"/>
+                            <stop offset="100%" stop-color="#22d3ee"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Circular Global Compass Lines for Export feel -->
+                    <circle cx="100" cy="100" r="85" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.1"/>
+                    <path d="M 100 15 L 100 185" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="5,5" opacity="0.2"/>
+                    <path d="M 15 100 L 185 100" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="5,5" opacity="0.2"/>
+
+                    <!-- Code / Brackets Style forming 'H' and 'A' -->
+                    <g>
+                        <!-- Left Wing (Opening code bracket styled as 'H' part) -->
+                        <path d="M 75 45 L 45 100 L 75 155" fill="none" stroke="url(#codeGrad1)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+                        
+                        <!-- Right Wing (Closing code bracket styled as 'H' part) -->
+                        <path d="M 125 45 L 155 100 L 125 155" fill="none" stroke="url(#codeGrad1)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+                        
+                        <!-- The Central Monogram 'A' - Rising upward node representing Web/Export Stack -->
+                        <path d="M 100 55 L 68 120 M 100 55 L 132 120" stroke="url(#codeGrad2)" stroke-width="12" stroke-linecap="round"/>
+                        
+                        <!-- Crossbar of A forming a server rack / stack level -->
+                        <line x1="80" y1="100" x2="120" y2="100" stroke="url(#codeGrad2)" stroke-width="10" stroke-linecap="round"/>
+                        
+                        <!-- Floating Node representing Core Data Analysis -->
+                        <circle cx="100" cy="55" r="9" fill="#22d3ee"/>
+                        <circle cx="100" cy="55" r="4" fill="#ffffff"/>
+                    </g>
+                </svg>

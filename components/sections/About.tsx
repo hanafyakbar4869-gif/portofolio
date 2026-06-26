@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { User } from 'lucide-react';
+import Image from 'next/image';
 
 const stats = [
   { value: '6+', label: 'Proyek Selesai' },
@@ -45,8 +45,14 @@ export default function About() {
             <motion.div variants={itemVariants} className="flex justify-center">
               <div className="relative w-64 h-64 sm:w-80 sm:h-80">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan to-purple opacity-20 blur-xl" />
-                <div className="relative w-full h-full rounded-full border-2 border-cyan/50 flex items-center justify-center glow-cyan overflow-hidden bg-white/5">
-                  <User size={80} className="text-gray-400" />
+                <div className="relative w-full h-full rounded-full border-2 border-cyan/50 glow-cyan overflow-hidden bg-white/5">
+                  <Image
+                    src="/images/profile.png"
+                    alt="MHD HANAFI AKBAR"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
               </div>
             </motion.div>
