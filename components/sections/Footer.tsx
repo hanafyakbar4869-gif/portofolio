@@ -1,87 +1,46 @@
-'use client';
-
-import { Github, Linkedin, Instagram } from 'lucide-react';
 import Image from 'next/image';
-
-const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
-];
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
-  const handleClick = (href: string) => {
-    const id = href.replace('#', '');
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  const t = useTranslations('Footer');
 
   return (
-    <footer className="relative pt-16 pb-8">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan to-purple" />
-
+    <footer className="border-t-2 border-on-surface py-12 mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <Image src="/images/logo.svg" alt="KulaiTach Logo" width={48} height={48} />
-              <span className="text-2xl font-bold text-purple-400">KulaiTach</span>
-            </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Building Digital Products That Work.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-x-6 gap-y-2 md:justify-center">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleClick(link.href);
-                }}
-                className="text-gray-400 text-sm hover:text-cyan transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          <div className="flex gap-4 md:justify-end">
-            <a
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <a className="font-headline-md text-headline-md font-black text-on-surface flex items-center gap-2" href="#">
+            <Image src="/images/logo.svg" alt="Logo" width={32} height={32} /> KulaiTach
+          </a>
+          <p className="font-label-bold text-label-bold text-on-surface-variant text-center md:text-left">
+            {t('copyright')}
+          </p>
+          <div className="flex gap-4">
+            {/* Social icons using Material Symbols or lucide (will use lucide for ease or material symbols if preferred) */}
+            <a 
+              className="w-10 h-10 rounded-full bg-surface-container border-2 border-on-surface shadow-pop-sm flex items-center justify-center hover:bg-primary-container hover:-translate-y-1 transition-transform" 
               href="https://github.com/kulaiaja123-lgtm"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
             >
-              <Github size={18} />
+              <Image src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt="Github" width={20} height={20} className="invert-0 dark:invert" style={{ filter: 'var(--icon-filter, none)' }} />
             </a>
-            <a
+            <a 
+              className="w-10 h-10 rounded-full bg-surface-container border-2 border-on-surface shadow-pop-sm flex items-center justify-center hover:bg-primary-container hover:-translate-y-1 transition-transform" 
               href="https://www.linkedin.com/in/hanafitech"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
             >
-              <Linkedin size={18} />
+              <Image src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} className="invert-0 dark:invert" style={{ filter: 'var(--icon-filter, none)' }} />
             </a>
-            <a
+            <a 
+              className="w-10 h-10 rounded-full bg-surface-container border-2 border-on-surface shadow-pop-sm flex items-center justify-center hover:bg-primary-container hover:-translate-y-1 transition-transform" 
               href="https://www.instagram.com/remah_ramah"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
             >
-              <Instagram size={18} />
+              <Image src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram" width={20} height={20} className="invert-0 dark:invert" style={{ filter: 'var(--icon-filter, none)' }} />
             </a>
           </div>
-        </div>
-
-        <div className="border-t border-white/10 pt-8 text-center">
-          <p className="text-gray-500 text-sm">
-            &copy; 2025 MHD HANAFI AKBAR. Built with Next.js &amp; love.
-          </p>
         </div>
       </div>
     </footer>

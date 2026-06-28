@@ -1,249 +1,108 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { MapPin, Mail, MessageCircle, Github, Linkedin, Instagram, Send, Loader2 } from 'lucide-react';
-import emailjs from '@emailjs/browser';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' as const } },
-};
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function Contact() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const t = useTranslations('Contact');
   const [formData, setFormData] = useState({
     nama: '',
     email: '',
     layanan: '',
     pesan: '',
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    emailjs.init({
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-    });
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        formData
-      );
-      setSubmitted(true);
-      setFormData({ nama: '', email: '', layanan: '', pesan: '' });
-      setTimeout(() => setSubmitted(false), 3000);
-    } catch (err) {
-      setError('Gagal mengirim pesan. Silakan coba lagi.');
-    } finally {
-      setLoading(false);
-    }
+    const waNumber = '6281234567890'; // Update with your actual WhatsApp number
+    const text = t('waTemplate', {
+      nama: formData.nama,
+      email: formData.email,
+      layanan: formData.layanan,
+      pesan: formData.pesan
+    });
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/${waNumber}?text=${encodedText}`, '_blank');
   };
 
   return (
-    <section id="contact" className="py-24 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              <span className="text-gradient">Hubungi Saya</span>
-            </h2>
-            <p className="text-gray-400 text-base sm:text-lg">Punya proyek? Mari diskusi!</p>
-          </motion.div>
+    <section id="contact" className="bg-primary-container rounded-[40px] p-8 md:p-16 border-2 border-on-surface shadow-pop relative overflow-hidden my-24">
+      {/* Decorative BG */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+      
+      <div className="relative z-10 max-w-2xl">
+        <h2 className="font-headline-lg-mobile md:font-headline-lg text-on-surface mb-6">
+          {t('titlePart1')} <br /> <span className="italic font-black text-primary">{t('titlePart2')}</span> {t('titlePart3')}
+        </h2>
+        <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
+          {t('description')}
+        </p>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            <motion.div variants={itemVariants} className="space-y-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center shrink-0">
-                  <MapPin size={22} className="text-cyan" />
-                </div>
-                <div>
-                  <h4 className="text-white font-medium mb-1">Lokasi</h4>
-                  <p className="text-gray-400 text-sm">Bukittinggi, Sumatera Barat, Indonesia</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center shrink-0">
-                  <Mail size={22} className="text-cyan" />
-                </div>
-                <div>
-                  <h4 className="text-white font-medium mb-1">Email</h4>
-                  <p className="text-gray-400 text-sm">hanafi.analytics.trade@gmail.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center shrink-0">
-                  <MessageCircle size={22} className="text-cyan" />
-                </div>
-                <div>
-                  <h4 className="text-white font-medium mb-1">WhatsApp</h4>
-                  <p className="text-gray-400 text-sm">+62 895-6303-45994</p>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <h4 className="text-white font-medium mb-4">Social Links</h4>
-                <div className="flex items-center gap-4">
-                  <a
-                    href="https://github.com/kulaiaja123-lgtm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
-                  >
-                    <Github size={18} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/hanafitech"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
-                  >
-                    <Linkedin size={18} />
-                  </a>
-                  <a
-                    href="https://www.instagram.com/remah_ramah"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-cyan hover:border-cyan/30 transition-all"
-                  >
-                    <Instagram size={18} />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label htmlFor="nama" className="block text-sm font-medium text-gray-300 mb-2">
-                    Nama
-                  </label>
-                  <input
-                    id="nama"
-                    name="nama"
-                    type="text"
-                    required
-                    value={formData.nama}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan/50 focus:ring-1 focus:ring-cyan/50 transition-all text-sm"
-                    placeholder="Nama kamu"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan/50 focus:ring-1 focus:ring-cyan/50 transition-all text-sm"
-                    placeholder="email@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="layanan" className="block text-sm font-medium text-gray-300 mb-2">
-                    Jenis Layanan
-                  </label>
-                  <select
-                    id="layanan"
-                    name="layanan"
-                    required
-                    value={formData.layanan}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan/50 focus:ring-1 focus:ring-cyan/50 transition-all text-sm appearance-none"
-                  >
-                    <option value="" className="bg-dark">Pilih layanan</option>
-                    <option value="landing" className="bg-dark">Landing Page</option>
-                    <option value="kasir" className="bg-dark">Kasir POS</option>
-                    <option value="ecommerce" className="bg-dark">E-Commerce</option>
-                    <option value="dashboard" className="bg-dark">Dashboard</option>
-                    <option value="chatbot" className="bg-dark">Chatbot</option>
-                    <option value="custom" className="bg-dark">Custom</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="pesan" className="block text-sm font-medium text-gray-300 mb-2">
-                    Pesan
-                  </label>
-                  <textarea
-                    id="pesan"
-                    name="pesan"
-                    rows={4}
-                    required
-                    value={formData.pesan}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan/50 focus:ring-1 focus:ring-cyan/50 transition-all text-sm resize-none"
-                    placeholder="Ceritakan tentang proyek kamu..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-cyan text-dark font-semibold rounded-full hover:bg-cyan/90 transition-all duration-200 hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 size={18} className="animate-spin" />
-                      Mengirim...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={18} />
-                      {submitted ? 'Terkirim!' : 'Kirim Pesan'}
-                    </>
-                  )}
-                </button>
-
-                {error && (
-                  <p className="text-red-400 text-sm text-center">{error}</p>
-                )}
-
-                <a
-                  href="https://wa.me/62895630345994"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-all duration-200"
-                >
-                  <MessageCircle size={18} />
-                  Chat Langsung di WhatsApp
-                </a>
-              </form>
-            </motion.div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="font-label-bold text-label-bold text-on-surface">{t('nameLabel')}</label>
+              <input 
+                name="nama"
+                value={formData.nama}
+                onChange={handleChange}
+                required
+                className="w-full bg-surface px-6 py-4 rounded-xl border-2 border-on-surface shadow-pop-sm focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all font-body-md" 
+                placeholder={t('namePlaceholder')} 
+                type="text" 
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="font-label-bold text-label-bold text-on-surface">{t('emailLabel')}</label>
+              <input 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full bg-surface px-6 py-4 rounded-xl border-2 border-on-surface shadow-pop-sm focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all font-body-md" 
+                placeholder={t('emailPlaceholder')} 
+                type="email" 
+              />
+            </div>
           </div>
-        </motion.div>
+
+          <div className="space-y-2">
+            <label className="font-label-bold text-label-bold text-on-surface">{t('serviceLabel')}</label>
+            <select 
+              name="layanan"
+              value={formData.layanan}
+              onChange={handleChange}
+              required
+              className="w-full bg-surface px-6 py-4 rounded-xl border-2 border-on-surface shadow-pop-sm focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all font-body-md appearance-none" 
+            >
+              <option value="">{t('servicePlaceholder')}</option>
+              <option value={t('serviceOpt1')}>{t('serviceOpt1')}</option>
+              <option value={t('serviceOpt2')}>{t('serviceOpt2')}</option>
+              <option value={t('serviceOpt3')}>{t('serviceOpt3')}</option>
+              <option value={t('serviceOpt4')}>{t('serviceOpt4')}</option>
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="font-label-bold text-label-bold text-on-surface">{t('messageLabel')}</label>
+            <textarea 
+              name="pesan"
+              value={formData.pesan}
+              onChange={handleChange}
+              required
+              className="w-full bg-surface px-6 py-4 rounded-xl border-2 border-on-surface shadow-pop-sm focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all font-body-md min-h-[150px] resize-none" 
+              placeholder={t('messagePlaceholder')}
+            ></textarea>
+          </div>
+
+          <button type="submit" className="candy-button w-full md:w-auto bg-primary text-on-primary font-label-bold text-label-bold px-12 py-4 rounded-full border-2 border-on-surface shadow-pop hover:shadow-pop-sm">
+            {t('submitButton')}
+          </button>
+        </form>
       </div>
     </section>
   );

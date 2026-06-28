@@ -1,88 +1,50 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import Image from 'next/image';
-
-const stats = [
-  { value: '6+', label: 'Proyek Selesai' },
-  { value: '3+', label: 'Tahun Pengalaman' },
-  { value: '100%', label: 'Client Satisfaction' },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' as const } },
-};
+import { useTranslations } from 'next-intl';
 
 export default function About() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const t = useTranslations('About');
+
+  const skills = [
+    { name: 'React', icon: 'code', bgColor: 'bg-primary-container' },
+    { name: 'Next.js', icon: 'terminal', bgColor: 'bg-on-background' },
+    { name: 'Tailwind', icon: 'palette', bgColor: 'bg-[#38bdf8]' },
+    { name: 'TypeScript', icon: 'data_object', bgColor: 'bg-[#3178c6]' },
+    { name: 'AI Integration', icon: 'smart_toy', bgColor: 'bg-secondary-container' },
+    { name: 'Backend', icon: 'database', bgColor: 'bg-tertiary-fixed' },
+  ];
 
   return (
-    <section id="about" className="py-24 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl font-bold text-center mb-16">
-            Tentang <span className="text-gradient">Saya</span>
-          </motion.h2>
+    <section className="grid md:grid-cols-2 gap-16 md:gap-24 items-center" id="about">
+      {/* Left: About */}
+      <div className="space-y-6">
+        <div className="inline-block px-4 py-1 bg-tertiary-fixed rounded-full border-2 border-on-surface text-label-bold font-label-bold mb-4 transform -rotate-2">
+          {t('greeting')}
+        </div>
+        <h2 className="font-headline-lg-mobile md:font-headline-lg text-on-surface">{t('title')}</h2>
+        <p className="font-body-md text-body-md text-on-surface-variant bg-surface-container-low p-6 rounded-2xl border-2 border-on-surface shadow-pop-sm">
+          {t('description')}
+        </p>
+        
+        {/* Simple stats could go here if wanted, but left out to keep the Pop design simple */}
+      </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
-            <motion.div variants={itemVariants} className="flex justify-center">
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan to-purple opacity-20 blur-xl" />
-                <div className="relative w-full h-full rounded-full border-2 border-cyan/50 glow-cyan overflow-hidden bg-white/5">
-                  <Image
-                    src="/images/profile.png"
-                    alt="MHD HANAFI AKBAR"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
+      {/* Right: Skills */}
+      <div className="space-y-6" id="skills">
+        <h3 className="font-headline-md text-headline-md text-on-surface">{t('techStackTitle')}</h3>
+        <div className="grid grid-cols-2 gap-4">
+          {skills.map((skill) => (
+            <div 
+              key={skill.name} 
+              className="flex items-center gap-3 p-3 bg-surface-container rounded-xl border-2 border-on-surface shadow-pop-sm hover:-translate-y-1 transition-transform cursor-default"
+            >
+              <div className={`w-10 h-10 rounded-full ${skill.bgColor} flex items-center justify-center border-2 border-on-surface text-on-primary`}>
+                <span className="material-symbols-outlined">{skill.icon}</span>
               </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                Saya adalah Fullstack Developer dengan passion dalam membangun produk digital yang berdampak.
-                Dari antarmuka yang indah hingga backend yang kuat, saya handle semuanya — termasuk integrasi AI dan analitik data.
-              </p>
-            </motion.div>
-          </div>
-
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
-          >
-            {stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={itemVariants}
-                className="glass glass-hover rounded-2xl p-8 text-center glow-cyan"
-              >
-                <div className="text-4xl sm:text-5xl font-extrabold text-cyan mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-400 text-sm sm:text-base">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+              <span className="font-label-bold text-label-bold">{skill.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

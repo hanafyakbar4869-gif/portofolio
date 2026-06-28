@@ -2,50 +2,65 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import LanguageSwitcher from '../LanguageSwitcher';
 
-const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
-];
+import { useTranslations } from 'next-intl';
 
 export default function Navbar() {
+  const t = useTranslations('Navbar');
+
+  const navLinks = [
+    { label: t('profil'), href: '#home' },
+    { label: t('about'), href: '#about' },
+    { label: t('work'), href: '#work' },
+    { label: t('contact'), href: '#contact' },
+  ];
+
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const [hidden, setHidden] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 20);
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-      setLastScrollY(currentScrollY);
-
       const sections = navLinks.map((l) => l.href.replace('#', ''));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 120) {
-            setActiveSection(sections[i]);
-            break;
-          }
-        }
+      const elements = sections
+        .map((id) => document.getElementById(id))
+        .filter((el) => el !== null) as HTMLElement[];
+
+      const isAtBottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 20;
+
+      if (isAtBottom && elements.length > 0) {
+        const lowestElement = elements.reduce((prev, current) => {
+          return prev.getBoundingClientRect().top >= current.getBoundingClientRect().top
+            ? prev
+            : current;
+        });
+        setActiveSection(lowestElement.id);
+        return;
+      }
+
+      const activeElements = elements.filter(
+        (el) => el.getBoundingClientRect().top <= 120
+      );
+
+      if (activeElements.length > 0) {
+        const currentElement = activeElements.reduce((prev, current) => {
+          return prev.getBoundingClientRect().top >= current.getBoundingClientRect().top
+            ? prev
+            : current;
+        });
+        setActiveSection(currentElement.id);
+      } else {
+        setActiveSection('');
       }
     };
+
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClick = (href: string) => {
     setIsOpen(false);
@@ -57,65 +72,78 @@ export default function Navbar() {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: hidden ? -100 : 0 }}
-      transition={{ duration: 0.35, ease: 'easeInOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        scrolled ? 'bg-dark/80 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="#home" onClick={() => handleClick('#home')} className="flex items-center gap-2">
-            <Image src="/images/logo.svg" alt="KulaiTach Logo" width={36} height={36} />
-            <span className="text-xl font-bold text-purple-400">KulaiTach</span>
+    <>
+      <header className="bg-background/80 backdrop-blur-md fixed top-0 left-0 w-full z-50 border-b-2 border-on-surface shadow-[4px_4px_0px_#1d1a23]">
+        <div className="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          {/* Brand Logo */}
+          <a
+            href="#"
+            className="flex items-center gap-2 font-headline-md text-headline-md font-black text-on-surface hover:scale-105 hover:text-primary transition-transform"
+            style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+          >
+            <Image src="/images/logo.svg" alt="KulaiTach" width={32} height={32} />
+            KulaiTach
           </a>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleClick(link.href);
-                }}
-                className={`relative text-sm font-medium transition-colors duration-200 ${
-                  activeSection === link.href.replace('#', '') ? 'text-cyan' : 'text-gray-300 hover:text-white'
-                }`}
-              >
-                {link.label}
-                {activeSection === link.href.replace('#', '') && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan rounded-full"
-                  />
-                )}
-              </a>
-            ))}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.replace('#', '');
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClick(link.href);
+                  }}
+                  className={`font-label-bold text-label-bold transition-all hover:scale-105 hover:text-primary active:translate-x-[2px] active:translate-y-[2px] ${
+                    isActive
+                      ? 'text-primary font-bold relative after:content-[""] after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-1 after:bg-secondary-container'
+                      : 'text-on-surface nav-link'
+                  }`}
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Trailing Action */}
+          <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitcher />
+            {/* NOTE: Update the wa.me link with your actual number */}
+            <a
+              href="https://wa.me/6281234567890" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="candy-button hidden md:inline-flex items-center justify-center bg-primary text-on-primary font-label-bold text-label-bold px-6 py-3 rounded-full border-2 border-on-surface shadow-pop hover:shadow-pop-sm"
+            >
+              {t('hireMe')}
+            </a>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-gray-300 hover:text-white"
-            aria-label="Toggle menu"
+            className="md:hidden p-2 text-on-surface bg-surface-container rounded-full border-2 border-on-surface shadow-pop-sm candy-button flex items-center justify-center"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            <span className="material-symbols-outlined">{isOpen ? 'close' : 'menu'}</span>
           </button>
         </div>
-      </div>
+      </header>
 
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-dark/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-20 left-0 w-full z-40 bg-surface border-b-2 border-on-surface shadow-pop md:hidden"
           >
-            <div className="px-4 py-4 space-y-2">
+            <div className="flex flex-col p-4 gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -124,19 +152,23 @@ export default function Navbar() {
                     e.preventDefault();
                     handleClick(link.href);
                   }}
-                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    activeSection === link.href.replace('#', '')
-                      ? 'text-cyan bg-cyan/10'
-                      : 'text-gray-300 hover:text-white hover:bg-white/5'
-                  }`}
+                  className="font-label-bold text-label-bold text-on-surface p-4 bg-surface-container-low rounded-xl border-2 border-on-surface shadow-pop-sm active:translate-x-1 active:translate-y-1"
                 >
                   {link.label}
                 </a>
               ))}
+              <a
+                href="https://wa.me/6281234567890"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="candy-button w-full text-center bg-primary text-on-primary font-label-bold text-label-bold px-6 py-4 rounded-xl border-2 border-on-surface shadow-pop-sm mt-2"
+              >
+                {t('hireMeViaWa')}
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 }

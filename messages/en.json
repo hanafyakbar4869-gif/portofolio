@@ -1,0 +1,68 @@
+{
+  "Navbar": {
+    "profil": "Profile",
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact",
+    "hireMe": "Hire Me",
+    "hireMeViaWa": "Hire Me via WhatsApp"
+  },
+  "Hero": {
+    "greeting": "Hi, I am",
+    "description": "Fullstack Developer & AI Integrator. I build modern web and powerful intelligent systems. Based in Padang, Indonesia.",
+    "cta": "View Projects"
+  },
+  "About": {
+    "greeting": "Hello World",
+    "title": "About Me",
+    "description": "I am a Fullstack Developer with a passion for building impactful digital products. From beautiful interfaces to robust backends, I handle it all — including AI integration and data analytics.",
+    "techStackTitle": "Tech Stack"
+  },
+  "Projects": {
+    "title": "Selected Projects",
+    "description": "A collection of projects where I experiment with the latest technologies, smooth interactions, and modern design.",
+    "liveDemo": "Live Demo",
+    "code": "Code",
+    "p1_title": "Modern Landing Page",
+    "p1_category": "Frontend",
+    "p1_desc": "Business landing page with smooth animations, fully responsive, and SEO optimized.",
+    "p2_title": "POS Cashier System",
+    "p2_category": "Fullstack",
+    "p2_desc": "Complete cashier application: product management, transactions, reports, and multi-user login.",
+    "p3_title": "AI Data Analyst",
+    "p3_category": "AI",
+    "p3_desc": "Upload CSV/Excel, AI automatically analyzes data, creates chart visualizations, and automated insights.",
+    "p4_title": "Agriculture Chatbot",
+    "p4_category": "AI",
+    "p4_desc": "AI assistant for farmers — answers questions about pests, weather, and farming techniques.",
+    "p5_title": "E-Commerce Platform",
+    "p5_category": "Fullstack",
+    "p5_desc": "Complete online shopping platform with shopping cart, checkout, and admin dashboard.",
+    "p6_title": "Streamlit Dashboard",
+    "p6_category": "Data",
+    "p6_desc": "Interactive Python-based analytics dashboard for monitoring and business data visualization."
+  },
+  "Contact": {
+    "titlePart1": "Let's build something",
+    "titlePart2": "amazing",
+    "titlePart3": "together.",
+    "description": "Available for freelance projects. Contact me if you want to discuss design, technology, or other ideas.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your Name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "email@example.com",
+    "serviceLabel": "Service",
+    "servicePlaceholder": "Select a service",
+    "serviceOpt1": "Landing Page",
+    "serviceOpt2": "Web App / System",
+    "serviceOpt3": "AI Integration",
+    "serviceOpt4": "Other",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me about your project...",
+    "submitButton": "Send via WhatsApp",
+    "waTemplate": "Hello, my name is {nama} ({email}).\n\nI am interested in the service: {layanan}\n\nMessage:\n{pesan}"
+  },
+  "Footer": {
+    "copyright": "© 2025 KulaiTach. Built with Next.js & Tailwind."
+  }
+}

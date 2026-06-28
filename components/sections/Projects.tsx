@@ -1,192 +1,246 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
-
-const categories = ['Semua', 'Fullstack', 'AI', 'Frontend', 'Data'];
-
-const projects = [
-  {
-    title: 'Landing Page Modern',
-    category: 'Frontend',
-    description: 'Landing page bisnis dengan animasi smooth, fully responsive, dan optimasi SEO.',
-    tech: ['HTML', 'CSS', 'React', 'Tailwind'],
-    accent: 'blue',
-    demoUrl: 'https://homecareclinik.vercel.app',
-    githubUrl: 'https://github.com/kulaiaja123-lgtm/homecareclinik',
-  },
-  {
-    title: 'Sistem Kasir POS',
-    category: 'Fullstack',
-    description: 'Aplikasi kasir lengkap: manajemen produk, transaksi, laporan, dan multi-user login.',
-    tech: ['React', 'Java', 'MySQL', 'REST API'],
-    accent: 'green',
-    demoUrl: 'https://umkm-pos-theta.vercel.app',
-    githubUrl: 'https://github.com/kulaiaja123-lgtm/umkm-pos',
-  },
-  {
-    title: 'AI Data Analyst',
-    category: 'AI',
-    description: 'Upload CSV/Excel, AI otomatis analisis data, buat visualisasi grafik, dan insight otomatis.',
-    tech: ['Python', 'Streamlit', 'Pandas', 'OpenAI', 'React', 'Next.js'],
-    accent: 'purple',
-    demoUrl: '',
-    githubUrl: '',
-  },
-  {
-    title: 'Chatbot Pertanian',
-    category: 'AI',
-    description: 'Asisten AI untuk petani — menjawab pertanyaan soal hama, cuaca, dan teknik bertani.',
-    tech: ['Python', 'Next.js', 'NLP', 'OpenAI API'],
-    accent: 'cyan',
-    demoUrl: 'https://panen-cerdas-c35b.vercel.app',
-    githubUrl: 'https://github.com/kulaiaja123-lgtm/panen-cerdas',
-  },
-  {
-    title: 'E-Commerce Platform',
-    category: 'Fullstack',
-    description: 'Platform belanja online lengkap dengan keranjang belanja, checkout, dan dashboard admin.',
-    tech: ['Next.js', 'Java', 'PostgreSQL', 'Midtrans'],
-    accent: 'orange',
-    demoUrl: 'https://catalog-fnb.vercel.app',
-    githubUrl: 'https://github.com/kulaiaja123-lgtm/catalogFNB',
-  },
-  {
-    title: 'Dashboard Streamlit',
-    category: 'Data',
-    description: 'Dashboard analitik interaktif berbasis Python untuk monitoring dan visualisasi data bisnis.',
-    tech: ['Python', 'Streamlit', 'Plotly', 'Pandas'],
-    accent: 'yellow',
-    demoUrl: 'https://customer-marketing-analytics-endsakxhpywwscwv8peuvj.streamlit.app',
-    githubUrl: 'https://github.com/kulaiaja123-lgtm/customer-marketing-analytics',
-  },
-];
-
-const accentColors: Record<string, string> = {
-  blue: 'border-blue-500 shadow-blue-500/10 hover:shadow-blue-500/20',
-  green: 'border-green-500 shadow-green-500/10 hover:shadow-green-500/20',
-  purple: 'border-purple-500 shadow-purple-500/10 hover:shadow-purple-500/20',
-  cyan: 'border-cyan shadow-cyan/10 hover:shadow-cyan/20',
-  orange: 'border-orange-500 shadow-orange-500/10 hover:shadow-orange-500/20',
-  yellow: 'border-yellow-500 shadow-yellow-500/10 hover:shadow-yellow-500/20',
-};
-
-const badgeColors: Record<string, string> = {
-  blue: 'bg-blue-500/10 text-blue-400',
-  green: 'bg-green-500/10 text-green-400',
-  purple: 'bg-purple-500/10 text-purple-400',
-  cyan: 'bg-cyan/10 text-cyan',
-  orange: 'bg-orange-500/10 text-orange-400',
-  yellow: 'bg-yellow-500/10 text-yellow-400',
-};
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' as const } },
-};
+import React, { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 export default function Projects() {
-  const [activeCategory, setActiveCategory] = useState('Semua');
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const t = useTranslations('Projects');
+  
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [
+    Autoplay({ delay: 3000, stopOnInteraction: true }),
+  ]);
 
-  const filtered =
-    activeCategory === 'Semua'
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+  const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
+  const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
+
+  const onInit = useCallback((emblaApi: any) => {
+    setScrollSnaps(emblaApi.scrollSnapList());
+  }, []);
+
+  const onSelect = useCallback((emblaApi: any) => {
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+    setPrevBtnDisabled(!emblaApi.canScrollPrev());
+    setNextBtnDisabled(!emblaApi.canScrollNext());
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onInit(emblaApi);
+    onSelect(emblaApi);
+    emblaApi.on('reInit', onInit);
+    emblaApi.on('reInit', onSelect);
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onInit, onSelect]);
+
+  const projects = [
+    {
+      title: t('p1_title'),
+      category: t('p1_category'),
+      description: t('p1_desc'),
+      tech: ['HTML', 'CSS', 'React', 'Tailwind'],
+      bgColor: 'bg-[#ffdeeb]',
+      image: '/images/landingPage.png',
+      demoUrl: 'https://homecareclinik.vercel.app',
+      githubUrl: 'https://github.com/kulaiaja123-lgtm/homecareclinik',
+    },
+    {
+      title: t('p2_title'),
+      category: t('p2_category'),
+      description: t('p2_desc'),
+      tech: ['React', 'Java', 'MySQL', 'REST API'],
+      bgColor: 'bg-primary-container',
+      image: '/images/umkm-pos.png',
+      demoUrl: 'https://umkm-pos-theta.vercel.app',
+      githubUrl: 'https://github.com/kulaiaja123-lgtm/umkm-pos',
+    },
+    {
+      title: t('p3_title'),
+      category: t('p3_category'),
+      description: t('p3_desc'),
+      tech: ['Python', 'Streamlit', 'Pandas', 'OpenAI', 'React', 'Next.js'],
+      bgColor: 'bg-secondary-container',
+      image: '/images/chatBotPertanian.png',
+      demoUrl: '',
+      githubUrl: '',
+    },
+    {
+      title: t('p4_title'),
+      category: t('p4_category'),
+      description: t('p4_desc'),
+      tech: ['Python', 'Next.js', 'NLP', 'OpenAI API'],
+      bgColor: 'bg-tertiary-container',
+      image: '/images/chatBotPertanian.png',
+      demoUrl: 'https://panen-cerdas-c35b.vercel.app',
+      githubUrl: 'https://github.com/kulaiaja123-lgtm/panen-cerdas',
+    },
+    {
+      title: t('p5_title'),
+      category: t('p5_category'),
+      description: t('p5_desc'),
+      tech: ['Next.js', 'Java', 'PostgreSQL', 'Midtrans'],
+      bgColor: 'bg-[#ffdeeb]',
+      image: '/images/dapurkita.png',
+      demoUrl: 'https://catalog-fnb.vercel.app',
+      githubUrl: 'https://github.com/kulaiaja123-lgtm/catalogFNB',
+    },
+    {
+      title: t('p6_title'),
+      category: t('p6_category'),
+      description: t('p6_desc'),
+      tech: ['Python', 'Streamlit', 'Plotly', 'Pandas'],
+      bgColor: 'bg-primary-container',
+      image: '/images/dasboardanalisis.png',
+      demoUrl: 'https://customer-marketing-analytics-endsakxhpywwscwv8peuvj.streamlit.app',
+      githubUrl: 'https://github.com/kulaiaja123-lgtm/customer-marketing-analytics',
+    },
+  ];
 
   return (
-    <section id="projects" className="py-24 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl font-bold text-center mb-4">
-            <span className="text-gradient">Proyek</span>
-          </motion.h2>
+    <section id="work" className="space-y-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h2 className="font-headline-lg-mobile md:font-headline-lg text-on-surface">{t('title')}</h2>
+          <p className="font-body-md text-body-md text-on-surface-variant max-w-xl mt-4">
+            {t('description')}
+          </p>
+        </div>
+        
+        {/* Desktop Navigation Arrows */}
+        <div className="hidden md:flex gap-3">
+          <button
+            onClick={scrollPrev}
+            disabled={prevBtnDisabled}
+            className="p-3 rounded-full border-2 border-on-surface hover:bg-primary hover:text-on-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-pop"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={scrollNext}
+            disabled={nextBtnDisabled}
+            className="p-3 rounded-full border-2 border-on-surface hover:bg-primary hover:text-on-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-pop"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
+      </div>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2 mb-12">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  activeCategory === cat
-                    ? 'bg-cyan text-dark'
-                    : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
-                }`}
+      {/* Embla Carousel */}
+      <div className="relative">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex -ml-6">
+            {projects.map((project, idx) => (
+              <div 
+                key={idx} 
+                className="pl-6 flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333333%] min-w-0"
               >
-                {cat}
-              </button>
-            ))}
-          </motion.div>
-
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((project) => (
-                <motion.div
-                  key={project.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
-                  whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                  className={`glass rounded-2xl overflow-hidden border-t-4 ${accentColors[project.accent]} transition-shadow duration-300`}
-                >
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-lg font-semibold text-white pr-4">{project.title}</h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${badgeColors[project.accent]}`}>
-                        {project.category}
+                <div className="group flex flex-col h-full">
+                  <div className={`aspect-[4/3] ${project.bgColor} rounded-3xl border-2 border-on-surface shadow-pop overflow-hidden mb-6 relative`}>
+                    {project.image ? (
+                      <Image 
+                        src={project.image} 
+                        alt={project.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full opacity-80 group-hover:scale-105 transition-transform duration-500 bg-[radial-gradient(#1d1a23_2px,transparent_2px)] [background-size:16px_16px] opacity-30" />
+                    )}
+                    
+                    <div className="absolute top-4 left-4 bg-primary text-on-primary font-label-bold text-label-bold px-4 py-2 rounded-full border-2 border-on-surface">
+                      {project.category}
+                    </div>
+                  </div>
+                  
+                  <h3 className="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant mb-4 flex-1">
+                    {project.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((t) => (
+                      <span key={t} className="px-2 py-1 rounded-md bg-surface-container text-on-surface-variant text-xs border-2 border-on-surface/20 font-label-bold">
+                        {t}
                       </span>
-                    </div>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-5">{project.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="px-2.5 py-1 rounded-md bg-white/5 text-gray-300 text-xs border border-white/10"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-3">
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-4 mt-auto">
+                    {project.demoUrl && (
                       <a
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan transition-colors"
+                        className="flex items-center gap-1.5 text-sm font-label-bold text-on-surface hover:text-primary transition-colors"
                       >
-                        <ExternalLink size={14} />
-                        Live Demo
+                        <ExternalLink size={16} />
+                        {t('liveDemo')}
                       </a>
+                    )}
+                    {project.githubUrl && (
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan transition-colors"
+                        className="flex items-center gap-1.5 text-sm font-label-bold text-on-surface hover:text-primary transition-colors"
                       >
-                        <Github size={14} />
-                        GitHub
+                        <Github size={16} />
+                        {t('code')}
                       </a>
-                    </div>
+                    )}
                   </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        </motion.div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Mobile Navigation Arrows (Overlay) */}
+        <div className="md:hidden absolute inset-y-0 -left-2 -right-2 flex items-center justify-between pointer-events-none">
+          <button
+            onClick={scrollPrev}
+            disabled={prevBtnDisabled}
+            className="p-2 rounded-full bg-surface border-2 border-on-surface shadow-pop pointer-events-auto hover:bg-primary hover:text-on-primary disabled:opacity-50 disabled:cursor-not-allowed -ml-2"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <button
+            onClick={scrollNext}
+            disabled={nextBtnDisabled}
+            className="p-2 rounded-full bg-surface border-2 border-on-surface shadow-pop pointer-events-auto hover:bg-primary hover:text-on-primary disabled:opacity-50 disabled:cursor-not-allowed -mr-2"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* Pagination Dots */}
+      <div className="flex justify-center gap-3 mt-8">
+        {scrollSnaps.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => scrollTo(index)}
+            className={`w-3 h-3 rounded-full border-2 border-on-surface transition-all ${
+              index === selectedIndex ? 'bg-primary scale-125' : 'bg-surface hover:bg-primary/50'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

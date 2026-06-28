@@ -1,0 +1,68 @@
+{
+  "Navbar": {
+    "profil": "Profile",
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact",
+    "hireMe": "Hire Me",
+    "hireMeViaWa": "Hire Me via WhatsApp"
+  },
+  "Hero": {
+    "greeting": "Halo, Saya",
+    "description": "Fullstack Developer & AI Integrator. Saya membangun web modern dan sistem cerdas yang powerful. Berbasis di Padang-Indonesia.",
+    "cta": "Lihat Proyek"
+  },
+  "About": {
+    "greeting": "Hello World",
+    "title": "Tentang Saya",
+    "description": "Saya adalah Fullstack Developer dengan passion dalam membangun produk digital yang berdampak. Dari antarmuka yang indah hingga backend yang kuat, saya handle semuanya — termasuk integrasi AI dan analitik data.",
+    "techStackTitle": "Tech Stack"
+  },
+  "Projects": {
+    "title": "Proyek Pilihan",
+    "description": "Kumpulan proyek di mana saya bereksperimen dengan teknologi terbaru, interaksi yang smooth, dan desain modern.",
+    "liveDemo": "Live Demo",
+    "code": "Code",
+    "p1_title": "Landing Page Modern",
+    "p1_category": "Frontend",
+    "p1_desc": "Landing page bisnis dengan animasi smooth, fully responsive, dan optimasi SEO.",
+    "p2_title": "Sistem Kasir POS",
+    "p2_category": "Fullstack",
+    "p2_desc": "Aplikasi kasir lengkap: manajemen produk, transaksi, laporan, dan multi-user login.",
+    "p3_title": "AI Data Analyst",
+    "p3_category": "AI",
+    "p3_desc": "Upload CSV/Excel, AI otomatis analisis data, buat visualisasi grafik, dan insight otomatis.",
+    "p4_title": "Chatbot Pertanian",
+    "p4_category": "AI",
+    "p4_desc": "Asisten AI untuk petani — menjawab pertanyaan soal hama, cuaca, dan teknik bertani.",
+    "p5_title": "E-Commerce Platform",
+    "p5_category": "Fullstack",
+    "p5_desc": "Platform belanja online lengkap dengan keranjang belanja, checkout, dan dashboard admin.",
+    "p6_title": "Dashboard Streamlit",
+    "p6_category": "Data",
+    "p6_desc": "Dashboard analitik interaktif berbasis Python untuk monitoring dan visualisasi data bisnis."
+  },
+  "Contact": {
+    "titlePart1": "Mari buat sesuatu yang",
+    "titlePart2": "luar biasa",
+    "titlePart3": "bersama.",
+    "description": "Tersedia untuk proyek freelance. Hubungi saya jika Anda ingin berdiskusi tentang desain, teknologi, atau ide lainnya.",
+    "nameLabel": "Nama",
+    "namePlaceholder": "Nama Anda",
+    "emailLabel": "Email",
+    "emailPlaceholder": "email@example.com",
+    "serviceLabel": "Layanan",
+    "servicePlaceholder": "Pilih layanan",
+    "serviceOpt1": "Landing Page",
+    "serviceOpt2": "Web App / Sistem",
+    "serviceOpt3": "Integrasi AI",
+    "serviceOpt4": "Lainnya",
+    "messageLabel": "Pesan",
+    "messagePlaceholder": "Ceritakan tentang proyek Anda...",
+    "submitButton": "Kirim via WhatsApp",
+    "waTemplate": "Halo, perkenalkan saya {nama} ({email}).\n\nSaya tertarik dengan layanan: {layanan}\n\nPesan:\n{pesan}"
+  },
+  "Footer": {
+    "copyright": "© 2025 KulaiTach. Dibangun dengan Next.js & Tailwind."
+  }
+}
