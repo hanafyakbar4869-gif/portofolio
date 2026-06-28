@@ -50,7 +50,7 @@ export default function Hero() {
       </div>
 
       {/* Right Side Graphic / Profile Image */}
-      <div className="flex-1 relative w-full h-64 md:h-[500px] max-w-md mx-auto">
+      <div className="relative w-full h-[320px] shrink-0 mt-8 md:mt-0 md:flex-1 md:h-[500px] max-w-md mx-auto">
         <div className="absolute inset-0 bg-surface-container rounded-3xl border-2 border-on-surface shadow-pop rotate-2 md:rotate-3 overflow-hidden group">
           {/* We use profile.png as requested */}
           <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-500">
