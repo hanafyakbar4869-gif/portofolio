@@ -81,7 +81,7 @@ export default function Navbar() {
             className="flex items-center gap-2 font-headline-md text-headline-md font-black text-on-surface hover:scale-105 hover:text-primary transition-transform"
             style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
           >
-            <Image src="/images/logo.svg" alt="KulaiTach" width={32} height={32} />
+            <Image src="/images/logo.svg" alt="KulaiTach" width={48} height={48} />
             KulaiTach
           </a>
 

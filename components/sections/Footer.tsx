@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <a className="font-headline-md text-headline-md font-black text-on-surface flex items-center gap-2" href="#">
-            <Image src="/images/logo.svg" alt="Logo" width={32} height={32} /> KulaiTach
+            <Image src="/images/logo.svg" alt="Logo" width={48} height={48} /> KulaiTach
           </a>
           <p className="font-label-bold text-label-bold text-on-surface-variant text-center md:text-left">
             {t('copyright')}
