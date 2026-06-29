@@ -21,10 +21,10 @@ export default function Hero() {
 
       {/* Content */}
       <div className="flex-1 space-y-8 relative z-10">
-        <div className="inline-block px-4 py-1 bg-tertiary-fixed rounded-full border-2 border-on-surface text-label-bold font-label-bold mb-2 transform -rotate-2">
+        <div className="inline-block px-5 py-2 bg-tertiary-fixed rounded-full border-2 border-on-surface text-body-lg font-label-bold mb-2 transform -rotate-2">
           {t('greeting')}
         </div>
-        <h1 className="font-display-lg-mobile md:font-display-lg text-on-surface max-w-2xl leading-tight">
+        <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface max-w-2xl leading-tight">
           MHD HANAFI AKBAR <br />
           <span className="relative inline-block">
             <span className="relative z-10 text-primary">KULAI</span>

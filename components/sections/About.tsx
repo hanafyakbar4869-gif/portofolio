@@ -18,11 +18,11 @@ export default function About() {
     <section className="grid md:grid-cols-2 gap-16 md:gap-24 items-center" id="about">
       {/* Left: About */}
       <div className="space-y-6">
-        <div className="inline-block px-4 py-1 bg-tertiary-fixed rounded-full border-2 border-on-surface text-label-bold font-label-bold mb-4 transform -rotate-2">
+        <div className="inline-block px-5 py-2 bg-tertiary-fixed rounded-full border-2 border-on-surface text-body-lg font-label-bold mb-4 transform -rotate-2">
           {t('greeting')}
         </div>
-        <h2 className="font-headline-lg-mobile md:font-headline-lg text-on-surface">{t('title')}</h2>
-        <p className="font-body-md text-body-md text-on-surface-variant bg-surface-container-low p-6 rounded-2xl border-2 border-on-surface shadow-pop-sm">
+        <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">{t('title')}</h2>
+        <p className="font-body-lg text-body-lg text-on-surface-variant bg-surface-container-low p-6 rounded-2xl border-2 border-on-surface shadow-pop-sm">
           {t('description')}
         </p>
         

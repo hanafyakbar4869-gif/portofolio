@@ -52,7 +52,7 @@ export default function Contact() {
       <div className="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
       
       <div className="relative z-10 max-w-2xl">
-        <h2 className="font-headline-lg-mobile md:font-headline-lg text-on-surface mb-6">
+        <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">
           {t('titlePart1')} <br /> <span className="italic font-black text-primary">{t('titlePart2')}</span> {t('titlePart3')}
         </h2>
         <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
