@@ -25,7 +25,7 @@ export default function Hero() {
           {t('greeting')}
         </div>
         <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface max-w-2xl leading-tight">
-          MHD HANAFI AKBAR <br />
+          HANAFI  <br />
           <span className="relative inline-block">
             <span className="relative z-10 text-primary">KULAI</span>
             <svg className="absolute -bottom-2 -left-2 w-full h-4 text-secondary-container -z-10" preserveAspectRatio="none" viewBox="0 0 100 20">
