@@ -124,14 +124,18 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-3 text-on-surface bg-surface-container rounded-full border-2 border-on-surface shadow-pop-sm candy-button flex items-center justify-center"
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          >
-            <span className="material-symbols-outlined">{isOpen ? 'close' : 'menu'}</span>
-          </button>
+          {/* Mobile Actions */}
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSwitcher />
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-3 text-on-surface bg-surface-container rounded-full border-2 border-on-surface shadow-pop-sm candy-button flex items-center justify-center"
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            >
+              <span className="material-symbols-outlined">{isOpen ? 'close' : 'menu'}</span>
+            </button>
+          </div>
         </div>
       </header>
 
