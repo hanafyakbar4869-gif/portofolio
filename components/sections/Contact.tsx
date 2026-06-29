@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import emailjs from '@emailjs/browser';
+import { toast } from 'sonner';
 
 export default function Contact() {
   const t = useTranslations('Contact');
@@ -12,21 +14,36 @@ export default function Contact() {
     pesan: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const waNumber = '6281234567890'; // Update with your actual WhatsApp number
-    const text = t('waTemplate', {
-      nama: formData.nama,
-      email: formData.email,
-      layanan: formData.layanan,
-      pesan: formData.pesan
-    });
-    const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/${waNumber}?text=${encodedText}`, '_blank');
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        {
+          nama: formData.nama,
+          email: formData.email,
+          layanan: formData.layanan,
+          pesan: formData.pesan,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+      );
+      toast.success(t('submitButton') === 'Kirim' ? 'Pesan berhasil dikirim!' : 'Message sent successfully!');
+      setFormData({ nama: '', email: '', layanan: '', pesan: '' });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      toast.error(t('submitButton') === 'Kirim' ? 'Gagal mengirim pesan.' : 'Failed to send message.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -99,8 +116,8 @@ export default function Contact() {
             ></textarea>
           </div>
 
-          <button type="submit" className="candy-button w-full md:w-auto bg-primary text-on-primary font-label-bold text-label-bold px-12 py-4 rounded-full border-2 border-on-surface shadow-pop hover:shadow-pop-sm">
-            {t('submitButton')}
+          <button type="submit" disabled={isSubmitting} className="candy-button w-full md:w-auto bg-primary text-on-primary font-label-bold text-label-bold px-12 py-4 rounded-full border-2 border-on-surface shadow-pop hover:shadow-pop-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+            {isSubmitting ? '...' : t('submitButton')}
           </button>
         </form>
       </div>

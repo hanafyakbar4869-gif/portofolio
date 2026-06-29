@@ -19,17 +19,28 @@
   .candy-button {
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .candy-button:hover {
-      transform: scale(1.05);
+  @media (hover: hover) {
+      .candy-button:hover {
+          transform: scale(1.05);
+      }
+      .nav-link:hover::after {
+          background-color: #fc79bd; /* secondary-container */
+          transform: scaleX(1);
+          transform-origin: left;
+      }
+      .wiggle-on-hover:hover {
+          animation: wiggle 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
   }
+
   .candy-button:active {
       transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0px #1E293B !important;
+      box-shadow: 0px 0px 0px transparent !important;
   }
   @media (min-width: 768px) {
       .candy-button:active {
           transform: translate(4px, 4px);
-          box-shadow: 0px 0px 0px #1E293B !important;
+          box-shadow: 0px 0px 0px transparent !important;
       }
   }
 
@@ -51,11 +62,6 @@
       transform: scaleX(0);
       transform-origin: right;
   }
-  .nav-link:hover::after {
-      background-color: #fc79bd; /* secondary-container */
-      transform: scaleX(1);
-      transform-origin: left;
-  }
 
   /* Wiggle Animation */
   @keyframes wiggle {
@@ -64,9 +70,6 @@
       50% { transform: rotate(1deg); }
       75% { transform: rotate(-0.5deg); }
       100% { transform: rotate(0deg); }
-  }
-  .wiggle-on-hover:hover {
-      animation: wiggle 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   /* Hard Offset Shadows for Inputs */

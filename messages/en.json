@@ -29,9 +29,6 @@
     "p2_title": "POS Cashier System",
     "p2_category": "Fullstack",
     "p2_desc": "Complete cashier application: product management, transactions, reports, and multi-user login.",
-    "p3_title": "AI Data Analyst",
-    "p3_category": "AI",
-    "p3_desc": "Upload CSV/Excel, AI automatically analyzes data, creates chart visualizations, and automated insights.",
     "p4_title": "Agriculture Chatbot",
     "p4_category": "AI",
     "p4_desc": "AI assistant for farmers — answers questions about pests, weather, and farming techniques.",
@@ -59,10 +56,10 @@
     "serviceOpt4": "Other",
     "messageLabel": "Message",
     "messagePlaceholder": "Tell me about your project...",
-    "submitButton": "Send via WhatsApp",
+    "submitButton": "Send",
     "waTemplate": "Hello, my name is {nama} ({email}).\n\nI am interested in the service: {layanan}\n\nMessage:\n{pesan}"
   },
   "Footer": {
-    "copyright": "© 2025 KulaiTach. Built with Next.js & Tailwind."
+    "copyright": "© 2026 KulaiTach. Built with Next.js & Tailwind."
   }
 }

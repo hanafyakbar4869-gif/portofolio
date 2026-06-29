@@ -64,16 +64,6 @@ export default function Projects() {
       githubUrl: 'https://github.com/kulaiaja123-lgtm/umkm-pos',
     },
     {
-      title: t('p3_title'),
-      category: t('p3_category'),
-      description: t('p3_desc'),
-      tech: ['Python', 'Streamlit', 'Pandas', 'OpenAI', 'React', 'Next.js'],
-      bgColor: 'bg-secondary-container',
-      image: '/images/chatBotPertanian.png',
-      demoUrl: '',
-      githubUrl: '',
-    },
-    {
       title: t('p4_title'),
       category: t('p4_category'),
       description: t('p4_desc'),

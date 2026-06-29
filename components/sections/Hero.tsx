@@ -25,9 +25,9 @@ export default function Hero() {
           {t('greeting')}
         </div>
         <h1 className="font-display-lg-mobile md:font-display-lg text-on-surface max-w-2xl leading-tight">
-          MHD HANAFI <br />
+          MHD HANAFI AKBAR <br />
           <span className="relative inline-block">
-            <span className="relative z-10 text-primary">AKBAR</span>
+            <span className="relative z-10 text-primary">KULAI</span>
             <svg className="absolute -bottom-2 -left-2 w-full h-4 text-secondary-container -z-10" preserveAspectRatio="none" viewBox="0 0 100 20">
               <path d="M0 10 Q 50 20 100 10" fill="none" stroke="currentColor" strokeWidth="8"></path>
             </svg>
@@ -38,7 +38,7 @@ export default function Hero() {
         </p>
         <div className="pt-4 flex flex-wrap gap-4">
           <a
-            href="#projects"
+            href="#work"
             className="candy-button inline-flex items-center gap-4 bg-on-surface text-on-primary font-label-bold text-label-bold px-8 py-4 rounded-full border-2 border-on-surface shadow-pop group"
           >
             {t('cta')}

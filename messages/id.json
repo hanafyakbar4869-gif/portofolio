@@ -29,9 +29,6 @@
     "p2_title": "Sistem Kasir POS",
     "p2_category": "Fullstack",
     "p2_desc": "Aplikasi kasir lengkap: manajemen produk, transaksi, laporan, dan multi-user login.",
-    "p3_title": "AI Data Analyst",
-    "p3_category": "AI",
-    "p3_desc": "Upload CSV/Excel, AI otomatis analisis data, buat visualisasi grafik, dan insight otomatis.",
     "p4_title": "Chatbot Pertanian",
     "p4_category": "AI",
     "p4_desc": "Asisten AI untuk petani — menjawab pertanyaan soal hama, cuaca, dan teknik bertani.",
@@ -59,10 +56,10 @@
     "serviceOpt4": "Lainnya",
     "messageLabel": "Pesan",
     "messagePlaceholder": "Ceritakan tentang proyek Anda...",
-    "submitButton": "Kirim via WhatsApp",
+    "submitButton": "Kirim",
     "waTemplate": "Halo, perkenalkan saya {nama} ({email}).\n\nSaya tertarik dengan layanan: {layanan}\n\nPesan:\n{pesan}"
   },
   "Footer": {
-    "copyright": "© 2025 KulaiTach. Dibangun dengan Next.js & Tailwind."
+    "copyright": "© 2026 KulaiTach. Dibangun dengan Next.js & Tailwind."
   }
 }

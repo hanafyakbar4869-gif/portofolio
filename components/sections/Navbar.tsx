@@ -127,7 +127,8 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-on-surface bg-surface-container rounded-full border-2 border-on-surface shadow-pop-sm candy-button flex items-center justify-center"
+            className="md:hidden p-3 text-on-surface bg-surface-container rounded-full border-2 border-on-surface shadow-pop-sm candy-button flex items-center justify-center"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
           >
             <span className="material-symbols-outlined">{isOpen ? 'close' : 'menu'}</span>
           </button>
@@ -152,7 +153,7 @@ export default function Navbar() {
                     e.preventDefault();
                     handleClick(link.href);
                   }}
-                  className="font-label-bold text-label-bold text-on-surface p-4 bg-surface-container-low rounded-xl border-2 border-on-surface shadow-pop-sm active:translate-x-1 active:translate-y-1"
+                  className="font-label-bold text-label-bold text-on-surface p-4 bg-surface-container-low rounded-xl border-2 border-on-surface shadow-pop-sm candy-button"
                 >
                   {link.label}
                 </a>

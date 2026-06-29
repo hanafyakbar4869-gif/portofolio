@@ -6,19 +6,15 @@ Portfolio profesional **MHD HANAFI AKBAR**, Fullstack Developer spesialis web mo
 
 ---
 
-## Fitur
+## Fitur Utama
 
-- Loading screen dengan animasi gradient
-- Typing effect di hero section (4 role bergantian)
-- Scroll-triggered animations (Framer Motion)
-- Navbar auto-hide saat scroll ke bawah
-- Project filtering by kategori (Fullstack, AI, Frontend, Data)
-- Tech stack infinite marquee
-- Contact form dengan integrasi EmailJS
-- Floating WhatsApp button
-- SEO metadata (OpenGraph + Twitter Card)
-- Responsive design (mobile-first)
-- Dark theme dengan aksen cyan & purple
+- **Multi-language Support (i18n):** Mendukung beberapa bahasa dengan menggunakan `next-intl`.
+- **Tema Terang & Gelap:** Dukungan untuk dark mode dan light mode menggunakan `next-themes`.
+- **Loading Screen Animatif:** Transisi halaman yang halus dan menarik.
+- **Responsive Design:** Antarmuka yang optimal untuk layar seluler (mobile-first) maupun desktop.
+- **Contact Form Integrasi:** Formulir kontak fungsional yang terhubung dengan EmailJS.
+- **Desain UI Modern:** Dibangun menggunakan desain Pop/Modern yang khas dengan animasi menggunakan Framer Motion.
+- **Komponen UI Modular:** Memanfaatkan komponen modular Shadcn UI untuk interaktivitas maksimal (Radix UI).
 
 ---
 
@@ -29,11 +25,12 @@ Portfolio profesional **MHD HANAFI AKBAR**, Fullstack Developer spesialis web mo
 | Framework | Next.js 13 (App Router), React 18, TypeScript |
 | Styling | Tailwind CSS 3 |
 | Animasi | Framer Motion |
+| Internationalization | next-intl |
+| Theme | next-themes |
 | UI Library | ShadCN UI (Radix UI) |
-| Form | React Hook Form + Zod |
-| Email | @emailjs/browser |
+| Form & Validasi | React Hook Form + Zod |
+| Email Service | @emailjs/browser |
 | Icons | Lucide React |
-| Font | Inter (Google Fonts) |
 
 ---
 
@@ -42,45 +39,52 @@ Portfolio profesional **MHD HANAFI AKBAR**, Fullstack Developer spesialis web mo
 ```
 portofolio/
 ├── app/
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
+│   ├── [locale]/           # i18n App Router pages & layout
+│   └── globals.css
 ├── components/
-│   ├── sections/
+│   ├── sections/           # Komponen bagian-bagian utama
 │   │   ├── Navbar.tsx
 │   │   ├── Hero.tsx
 │   │   ├── About.tsx
-│   │   ├── Services.tsx
 │   │   ├── Projects.tsx
-│   │   ├── TechStack.tsx
-│   │   ├── Testimonials.tsx
 │   │   ├── Contact.tsx
 │   │   ├── Footer.tsx
-│   │   ├── BackToTop.tsx
-│   │   ├── WhatsAppFloat.tsx
 │   │   └── LoadingScreen.tsx
-│   └── ui/              (ShadCN components)
-├── public/images/
-├── .env.local
-├── tailwind.config.ts
-└── package.json
+│   └── ui/                 # ShadCN components (Button, Dialog, dll)
+├── messages/               # Berkas JSON untuk terjemahan bahasa (mis. id.json, en.json)
+├── public/images/          # Aset gambar statis
+├── hooks/                  # Custom React hooks
+├── lib/                    # File utilitas
+├── .env.local              # File variabel lingkungan
+├── tailwind.config.ts      # Konfigurasi Tailwind CSS
+└── package.json            # Daftar dependensi dan script npm
 ```
 
 ---
 
-## Cara Menjalankan
+## Bagian-Bagian Halaman (Sections)
+
+1. **Hero** — Menampilkan sapaan utama, pengenalan singkat, foto profil, dan tombol Call-To-Action.
+2. **About** — Berisi biografi singkat serta daftar Tech Stack dan keahlian inti (React, Next.js, Tailwind, dll).
+3. **Projects** — Menampilkan daftar proyek yang telah dikerjakan.
+4. **Contact** — Formulir kontak interaktif dan informasi kontak.
+5. **Footer** — Penutup halaman dengan link navigasi.
+
+---
+
+## Cara Menjalankan secara Lokal
 
 ```bash
-# Install dependencies
+# 1. Install dependencies
 npm install
 
-# Jalankan development server
+# 2. Jalankan development server
 npm run dev
 
-# Build untuk production
+# 3. Build untuk production
 npm run build
 
-# Jalankan production server
+# 4. Jalankan production server
 npm start
 ```
 
@@ -88,26 +92,15 @@ npm start
 
 ## Environment Variables
 
-Buat file `.env.local`:
+Agar formulir kontak EmailJS berfungsi, buat file `.env.local` di root direktori dengan konfigurasi berikut:
 
-```
+```env
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
----
-
-## Sections
-
-1. **Hero** — Sapaan, typing effect, CTA buttons
-2. **About** — Bio, statistik (proyek, pengalaman, kepuasan klien)
-3. **Services** — 6 layanan (Landing Page, E-Commerce, POS, Dashboard, AI, Fullstack)
-4. **Projects** — Galeri proyek dengan filter kategori
-5. **Tech Stack** — Marquee 17 teknologi
-6. **Testimonials** — 3 testimoni klien
-7. **Contact** — Form + info kontak + social media
-8. **Footer** — Navigasi, logo, copyright
+*(Catatan: Variabel-variabel di atas didapatkan dari dashboard EmailJS).*
 
 ---
 
